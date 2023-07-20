@@ -7,6 +7,11 @@ extern puts
 ; and then calls function main.
 global main
 main:
+	; Make sure rsp is aligned to 16 bytes. This is required by ABI
+	; (Application Binary Interface) before calling any function. On entry
+	; to main rsp has value 16 * n - 8, n ∈ ℕ.
+	sub rsp, 8
+
 	; As with syscalls, the first argument for function is passed in rdi.
 	mov rdi, message
 	; call pushes the address of instruction right after call to stack and
@@ -16,6 +21,10 @@ main:
 	; int values in C are 32-bit wide on x86-64 and they are returned in
 	; eax.
 	mov eax, 0
+
+	; We need to reset rsp back to original value, otherwise ret wouldn't
+	; be able to read proper return address.
+	add rsp, 8
 
 	; ret pops the value from the top of the stacks and treats is an
 	; address to jump to.

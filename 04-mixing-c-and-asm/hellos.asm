@@ -14,9 +14,15 @@ hello_syscall:
 
 ; void hello_puts(void)
 hello_puts:
+	; Note that stack alignment isn't required in functions using syscall,
+	; like the hello_syscall above as those don't utilize user process
+	; stack.
+	sub rsp, 8
+
 	mov rdi, message2
 	call puts
 
+	add rsp, 8
 	ret
 
 message1:

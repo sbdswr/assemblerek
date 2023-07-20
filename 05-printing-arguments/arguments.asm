@@ -40,6 +40,11 @@ _start:
 	; If we haven't jumped, we continue here, printing the argument.
 	; puts accepts argument to print in rdi, so it's already there.
 	call puts
+	; Note that there isn't any sub rsp, 8 here. This is because the only
+	; calls we make here are to short local functions in this file, so we
+	; can ignore System V ABI in such case, also use different registers
+	; for arguments or even pass them by stack. But in general case it is
+	; safer to follow the ABI everywhere.
 
 	; Unconditionally jump back to .loop.
 	jmp .loop
