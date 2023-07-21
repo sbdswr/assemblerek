@@ -89,10 +89,10 @@ puts:
 	; rdi is one of the volatile registers, i.e. registers, that can be
 	; freely changed by called function. And indeed our strlen
 	; implementation changes rdi, so let's push it on stack first.
-	push rdi      ; stack[--rbp] = rdi
+	push rdi      ; stack[--rsp] = rdi
 	call strlen
 	; And now we bring original value back to rdi from stack.
-	pop rdi       ; rdi = stack[rbp++]
+	pop rdi       ; rdi = stack[rsp++]
 
 	mov rdx, rax  ; rax contains string length returned from strlen
 	mov rax, SYSCALL_WRITE
