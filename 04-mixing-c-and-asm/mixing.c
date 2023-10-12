@@ -11,5 +11,5 @@ int main(void)
 	hello_puts();
 
 	int number = -15;
-	printf("Sum of %d and 123: %d\n", number, sum(-15, 123));
+	printf("Sum of %d and 123: %d\n", number, sum(number, 123));
 }
